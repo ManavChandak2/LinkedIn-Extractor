@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    :root{
+      --bg: #171126;          /* subtle deep purple */
+      --panel: #221433;       /* panel/card */
+      --muted: #cfc7e9;       /* light lavender text */
+      --accent: #7b4dff;      /* main Pazcare-like purple */
+      --accent-2: #5b2d90;    /* deeper purple */
+      --soft-white: #f6f5fb;  /* soft white */
+      --input-bg: rgba(255,255,255,0.03);
+      --input-border: rgba(255,255,255,0.08);
+      --card-shadow: rgba(6,4,12,0.6);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 18px;
+      width: 400px;
+      background: linear-gradient(180deg, var(--bg), #120a1b);
+      color: var(--soft-white);
+      box-sizing: border-box;
+    }
+
+    /* ---------------------------------------
+       UPDATED HEADER: LOGO + TITLE SIDE-BY-SIDE
+    ---------------------------------------- */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .header .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--soft-white);  /* title now white */
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+
+    /* Panel */
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: 0 12px 28px var(--card-shadow);
+    }
+
+    .input-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 14px;
+      background: var(--input-bg);
+      color: var(--soft-white);
+      transition: box-shadow .12s ease, border-color .12s ease;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.35);
+    }
+
+    input:focus {
+      border-color: rgba(123,77,255,0.95);
+      box-shadow: 0 8px 20px rgba(91,45,144,0.16);
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(91,45,144,0.22);
+      transition: transform .06s ease, box-shadow .12s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(1px); }
+    button:disabled {
+      background: linear-gradient(90deg, rgba(123,77,255,0.35), rgba(91,45,144,0.35));
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    /* Status boxes */
+    .status {
+      margin-top: 14px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+    .status.success {
+      background-color: rgba(40,199,111,0.08);
+      color: #bff3d0;
+      border: 1px solid rgba(40,199,111,0.12);
+      display: block;
+    }
+    .status.error {
+      background-color: rgba(248,215,218,0.06);
+      color: #f7c6cb;
+      border: 1px solid rgba(245,198,203,0.08);
+      display: block;
+    }
+    .status.info {
+      background-color: rgba(209,236,241,0.04);
+      color: #bfeaf5;
+      border: 1px solid rgba(190,229,235,0.06);
+      display: block;
+    }
+
+    /* Fetched results */
+    .fetched-data {
+      margin-top: 14px;
+      padding: 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .fetched-data h3 {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      color: var(--accent);
+    }
+
+    .data-item {
+      margin: 8px 0;
+      padding: 8px;
+      background: rgba(255,255,255,0.01);
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.02);
+      display: flex;
+      gap: 10px;
+    }
+
+    .data-label {
+      font-weight: 700;
+      color: var(--muted);
+      min-width: 110px;
+      font-size: 13px;
+    }
+
+    .data-value {
+      color: var(--soft-white);
+      word-break: break-all;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    .small-muted {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 440px) {
+      html,body{ width:360px; padding:12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UPDATED HEADER -->
+  <div class="header">
+    <img src="icon48.png" class="logo">
+    <h2>Pazcare Enrichment</h2>
+  </div>
+
+  <div class="panel">
+    <div class="input-group">
+      <label for="accountId">Account ID:</label>
+      <input type="text" id="accountId" placeholder="Enter Account ID">
+    </div>
+
+    <div class="input-group">
+      <label for="contactId">Contact ID:</label>
+      <input type="text" id="contactId" placeholder="Enter Contact ID">
+    </div>
+
+    <div class="input-group">
+      <label for="email">Email (optional):</label>
+      <input type="text" id="email" placeholder="Enter email if available">
+    </div>
+
+    <button id="extractBtn">Extract & Send</button>
+
+    <div id="status" class="status"></div>
+
+    <div id="fetchedData" class="fetched-data">
+      <h3>Fetched Details:</h3>
+      <div id="dataContainer"></div>
+    </div>
+
+    <div class="small-muted">v1.1 • Local only</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
